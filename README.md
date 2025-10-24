@@ -29,3 +29,6 @@ include -echo "flow.tcl"
 ```
 **ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
 <img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
+
+**ScreenShot:** The picture shows that openroad GUI is successfully Mapped
+<img width="1860" height="966" alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
