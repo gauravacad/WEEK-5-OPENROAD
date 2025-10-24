@@ -10,6 +10,7 @@
 
 <img width="1140" height="240" alt="image" src="https://github.com/user-attachments/assets/cd37c721-f27a-4569-8683-d9db759c146b" />
 
+# Working On First example design Gcd_nand_gate45
 
 ```bash
 # gcd flow pipe cleaner
@@ -26,3 +27,5 @@ set core_area {10.07 11.2 90.25 91}
 
 include -echo "flow.tcl"
 ```
+**ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
+<img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
