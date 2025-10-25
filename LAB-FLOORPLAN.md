@@ -6,6 +6,7 @@ This document describes key phases of the physical design process in OpenROAD—
 ## 🧭 Definition  
 **Floorplanning** is the process of defining the physical structure of a chip, including its shape, size, and spatial organization. It allocates space for all major components—macros, I/O pads, standard cells, and power networks—before detailed placement begins.  
 A well-designed floorplan ensures optimal wire lengths, balanced power delivery, and minimal routing congestion.
+
 ---
 ## 🌆 Key Floorplan Components  
 ### **1. Die Area**  
