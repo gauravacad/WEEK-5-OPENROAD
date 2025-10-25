@@ -105,9 +105,8 @@ Both are critical to achieving a successful, manufacturable ASIC layout using Op
 - Synthesized Netlist (.v): Describes which standard cells are used and how they are connected.
 - Libraries (.lef, .lib): Provide the physical shapes (LEF) and timing information (LIB) for all standard cells. 
 
-## 🛣️now we will do the floorpalnning and placement in openroad.
-### 📍so I have done it for gcd_nangate45_clean.tcl
-### 📂file_1 for floorplanning while working On First example design GCD_nand_gate45
+## 🛣️ Floorpalnning and Placement in OpenRoad.
+### 📂File_1 First example design GCD_nand_gate45
 
 ```bash
 # gcd flow pipe cleaner
@@ -156,7 +155,7 @@ openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl
 **ScreenShot:** The picture shows that Core Area.
 <img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
 
-### 📂 file_2  🧩OpenROAD Flow Floorplan Script (flow_floorplan.tcl)
+### 📂 File_2  🧩OpenROAD Flow Floorplan Script (flow_floorplan.tcl)
 - This script defines the floorplanning stage in the OpenROAD flow.
 - It sets up libraries, reads design sources, initializes the die/core area, places macros, and inserts tapcells.
 
@@ -243,7 +242,7 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 - In this we can see we have placed sucessfully power and ground lines on the chip.
 - With the power infrastructure laid out, the standard cell rows (green/blue lines) now have access to power and ground. The design is structurally ready for the Placement stage, where the logic cells will be placed onto    these rows and connected to these power lines.
 
-### 📂 file_4 flow_global_placement.tcl
+### 📂 File_4 flow_global_placement.tcl
 
 ``` bash
 # Assumes flow_helpers.tcl has been read.
@@ -349,9 +348,9 @@ repair_tie_fanout -separation $tie_separation $tiehi_port
 - The cells appear somewhat clustered towards the center and middle rows, leaving some rows less densely populated. This distribution is determined by the global placement algorithm trying to minimize wire length based on the netlist connections.
 
 
-## ⏭️now we will do the detailed placement
+## ⏭️ Detailed Placement
 
-### 📂 file_5 flow_detalied_placement.tcl
+### 📂 File_5 flow_detalied_placement.tcl
 
 ``` bash
 # Assumes flow_helpers.tcl has been read.
