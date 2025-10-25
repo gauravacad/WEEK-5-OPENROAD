@@ -129,22 +129,81 @@ include -echo "flow.tcl"
 openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
 ```
 
-### 😎now it will open the openroad software
-
+### 😎The GUI of OpenROAD Tool software Will Open
 
 **ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
 <img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
 
 **ScreenShot:** The picture shows that Core Area.
-<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/cc21bc84-3d6f-492c-a372-8d80e4ddde4c" />
 <img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
 
+### 📂 file_2  🧩OpenROAD Flow Floorplan Script (flow_floorplan.tcl)
+- This script defines the floorplanning stage in the OpenROAD flow.
+- It sets up libraries, reads design sources, initializes the die/core area, places macros, and inserts tapcells.
 
-**ScreenShot:** The picture shows that openroad GUI is successfully Mapped
-<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
+``` bash
+# Assumes flow helpers.tcl has been read.
+read_libraries
+read_verilog $synth_verilog
+link_design $top_module
+read_sdc $sdc_file
+
+set_thread_count [cpu_count]
+
+# Temporarily disable STA threading due to random failures
+sta::set_thread_count 1
+
+# Metrics for debugging
+utl::metric "IFP::ord_version" [ord::openroad_git_describe]
+utl::metric "IFP::instance_count" [sta::network_instance_count]
+
+# Initialize the floorplan
+initialize_floorplan -site $site \
+                     -die_area $die_area \
+                     -core_area $core_area
+
+# Load track definitions
+source $tracks_file
+
+# Remove buffers inserted by synthesis
+remove_buffers
+
+# Source pre-placed macros if provided
+if { $pre_placed_macros_file != "" } {
+    source $pre_placed_macros_file
+}
+
+###########################################################
+#                    Macro Placement
+###########################################################
+if { [have_macros] } {
+    lassign $macro_place_halo halo_x halo_y
+    set report_dir [make_result_file ${design}_${platform}_rtlmp]
+    rtl_macro_placer -halo_width $halo_x -halo_height $halo_y \
+                     -report_directory $report_dir
+}
+
+###########################################################
+#                    Tapcell Insertion
+###########################################################
+eval tapcell $tapcell_args ;# tclint-disable command-args
+```
+
+🏗️ Functional Summary
+| **Stage**                | **Command / Function**                    | **Purpose**                                                            |
+| ------------------------ | ----------------------------------------- | ---------------------------------------------------------------------- |
+| Library Loading          | `read_libraries`                          | Loads the required technology and standard cell libraries.             |
+| Design Input             | `read_verilog`, `link_design`, `read_sdc` | Reads the synthesized netlist and timing constraints.                  |
+| Threading Control        | `sta::set_thread_count 1`                 | Disables multi-threaded STA due to instability.                        |
+| Metrics Logging          | `utl::metric`                             | Records OpenROAD version and instance counts for debugging.            |
+| Floorplan Initialization | `initialize_floorplan`                    | Defines die and core areas and site grid.                              |
+| Track Definition         | `source $tracks_file`                     | Reads routing track information from a technology file.                |
+| Cleanup                  | `remove_buffers`                          | Removes unnecessary synthesis buffers before physical steps.           |
+| Macro Placement          | `rtl_macro_placer`                        | Places large pre-designed blocks (macros) based on halo spacing.       |
+| Tapcell Insertion        | `eval tapcell $tapcell_args`              | Inserts tapcells to prevent latch-up and maintain substrate integrity. |
 
 
-### 📂 file_2 flow_floorplan.tcl
+
 <img width="829" height="896" alt="Screenshot 2025-10-25 043003" src="https://github.com/user-attachments/assets/564d2889-d34f-4ef6-82b9-0c53e3944a83" />
 
 
@@ -232,6 +291,10 @@ openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl
 
 <img width="1851" height="1049" alt="Screenshot 2025-10-23 231413" src="https://github.com/user-attachments/assets/e640a19a-76ba-450e-a8d9-2a512dadc0cf" />
 
+
+
+**ScreenShot:** The picture shows that openroad GUI is successfully Mapped
+<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
 
 ## 🔭Observations 
 
