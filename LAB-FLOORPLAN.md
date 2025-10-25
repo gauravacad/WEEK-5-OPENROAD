@@ -107,16 +107,7 @@ Both are critical to achieving a successful, manufacturable ASIC layout using Op
 
 ## 🛣️now we will do the floorpalnning and placement in openroad.
 ### 📍so I have done it for gcd_nangate45_clean.tcl
-### 📂file_1 for floorplanning
-
-<img width="847" height="614" alt="Screenshot 2025-10-25 042652" src="https://github.com/user-attachments/assets/8a3d656f-5244-40bd-b2f7-fc2576c76f9e" />
-
-
-### 📂 file_2 flow_floorplan.tcl
-<img width="829" height="896" alt="Screenshot 2025-10-25 043003" src="https://github.com/user-attachments/assets/564d2889-d34f-4ef6-82b9-0c53e3944a83" />
-
-# Working On First example design GCD_nand_gate45
-
+### 📂file_1 for floorplanning while working On First example design GCD_nand_gate45
 ```bash
 # gcd flow pipe cleaner
 source "helpers.tcl"
@@ -132,6 +123,17 @@ set core_area {10.07 11.2 90.25 91}
 
 include -echo "flow.tcl"
 ```
+### 🏃‍➡️run this command in the tereminal 
+
+```bash
+openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
+```
+<img width="1413" height="402" alt="Screenshot 2025-10-25 043547" src="https://github.com/user-attachments/assets/5778d02d-7308-4373-b69c-01614ee28b1a" />
+
+### 😎now it will open the openroad software
+
+<img width="1852" height="1009" alt="Screenshot 2025-10-25 044028" src="https://github.com/user-attachments/assets/537dabc3-7e63-4490-8ca8-1cef47bb1848" />
+
 **ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
 <img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
 
@@ -144,16 +146,11 @@ include -echo "flow.tcl"
 <img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
 
 
-### 🏃‍➡️run this command in the tereminal 
+### 📂 file_2 flow_floorplan.tcl
+<img width="829" height="896" alt="Screenshot 2025-10-25 043003" src="https://github.com/user-attachments/assets/564d2889-d34f-4ef6-82b9-0c53e3944a83" />
 
-```bash
-openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
-```
-<img width="1413" height="402" alt="Screenshot 2025-10-25 043547" src="https://github.com/user-attachments/assets/5778d02d-7308-4373-b69c-01614ee28b1a" />
 
-### 😎now it will open the openroad software
 
-<img width="1852" height="1009" alt="Screenshot 2025-10-25 044028" src="https://github.com/user-attachments/assets/537dabc3-7e63-4490-8ca8-1cef47bb1848" />
 
 
 ## 🔭Obseravtions 
