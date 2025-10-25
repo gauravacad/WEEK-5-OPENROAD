@@ -128,11 +128,9 @@ include -echo "flow.tcl"
 ```bash
 openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
 ```
-<img width="1413" height="402" alt="Screenshot 2025-10-25 043547" src="https://github.com/user-attachments/assets/5778d02d-7308-4373-b69c-01614ee28b1a" />
 
 ### 😎now it will open the openroad software
 
-<img width="1852" height="1009" alt="Screenshot 2025-10-25 044028" src="https://github.com/user-attachments/assets/537dabc3-7e63-4490-8ca8-1cef47bb1848" />
 
 **ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
 <img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
