@@ -156,25 +156,6 @@ openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl
 **ScreenShot:** The picture shows that Core Area.
 <img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
 
-
-### 📂 file_4 flow_pdn.tcl
-
-<img width="1317" height="890" alt="Screenshot 2025-10-25 044310" src="https://github.com/user-attachments/assets/30513068-5307-439a-9309-f7afbbb2712c" />
-
-##  📂now again if we run with the gcd_nangate45_clean.tcl
-
-
-### 🔋 power line(shown img)
-
-<img width="1345" height="649" alt="Screenshot 2025-10-23 221602" src="https://github.com/user-attachments/assets/8be6d8f9-a933-48b8-b42c-f1a82c58b36f" />
-
-
-
-###  ⛱️ground line (pink_line)
-
-<img width="533" height="506" alt="Screenshot 2025-10-23 221614" src="https://github.com/user-attachments/assets/e2b6ab9d-ac41-454d-b181-7788d0ced47b" />
-
-
 ### 📂 file_2  🧩OpenROAD Flow Floorplan Script (flow_floorplan.tcl)
 - This script defines the floorplanning stage in the OpenROAD flow.
 - It sets up libraries, reads design sources, initializes the die/core area, places macros, and inserts tapcells.
@@ -244,16 +225,19 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 - The layout view shows a defined Die Area (outer white box) and Core Area (inner area with rows).
 - Inside the core area, We can clearly see the horizontal Standard Cell Rows (green lines) have been created.
 - This indicates the Floorplan Initialization stage is complete.
-## ⏭️ Now, We will run the next stage 
+
+
+**ScreenShot:** The picture shows that power line(shown img)
+<img width="1345" height="649" alt="Screenshot 2025-10-23 221602" src="https://github.com/user-attachments/assets/8be6d8f9-a933-48b8-b42c-f1a82c58b36f" />
+
+**ScreenShot:** The picture shows that ground line (pink_line)
+<img width="533" height="506" alt="Screenshot 2025-10-23 221614" src="https://github.com/user-attachments/assets/e2b6ab9d-ac41-454d-b181-7788d0ced47b" />
 
 
 ## 🔭Obseravtions
 
 - In this we can see we have placed sucessfully power and ground lines on the chip.
-- With the power infrastructure laid out, the standard cell rows (green/blue lines) now have access to power and ground. The design is structurally ready for the Placement stage, where the logic cells will be placed onto these rows and connected to these power lines.
-
-
-## ⏭️now our next step is the placement stage 
+- With the power infrastructure laid out, the standard cell rows (green/blue lines) now have access to power and ground. The design is structurally ready for the Placement stage, where the logic cells will be placed onto    these rows and connected to these power lines.
 
 ### 📂 file_4 flow_global_placement.tcl
 
