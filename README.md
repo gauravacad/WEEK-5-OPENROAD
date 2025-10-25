@@ -32,13 +32,34 @@ $ sudo apt install g++-9 -y
 $ git clone [https://github.com/google/or-tools.git](https://github.com/google/or-tools.git)
 $ cd or-tools
 # Build and install OR-Tools
-$ mkdir build && cd build
+$ mkdir build
+$ cd build
 $ cmake -DBUILD_DEPS=ON -DCMAKE_BUILD_TYPE=Release ..
 $ make -j$(nproc)
 $ sudo make install
 
 ```
 
+### 2️⃣ Step3 Build and Install `spdlog` tool (Critical Dependency)
+``` bash
+# installation outside openroad folder
+$ cd ~
+$ git clone -b v1.11.0 [https://github.com/gabime/spdlog.git](https://github.com/gabime/spdlog.git)
+$ cd spdlog
+$ cmake -DCMAKE_BUILD_TYPE=Release -DSPDLOG_FMT_EXTERNAL=OFF .
+$ make -j$(nproc)
+$ sudo make install
+```
+
+
+### 2️⃣ Step4 Build and Install gtest an dependency.
+``` bash
+# just move to the below folder and do cmake and make that will copy gtest and gmonk in the `usr/lib`
+$ cd /usr/src/gtest
+$ sudo cmake .
+$ sudo make
+$ sudo cp lib/libgtest*.a /usr/lib/
+```
 
 
 # Navigate back to the parent directory to start OpenROAD clone
