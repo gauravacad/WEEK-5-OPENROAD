@@ -245,13 +245,19 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 
 ### 📂 file_4 flow_global_placement.tcl
 
-<img width="1360" height="1003" alt="Screenshot 2025-10-25 045304" src="https://github.com/user-attachments/assets/6d3d8106-ebe8-403d-bb01-5e1d5f6e4826" />
+``` bash
 
 
-<img width="1856" height="754" alt="Screenshot 2025-10-25 045329" src="https://github.com/user-attachments/assets/310c208c-c044-4ea4-b3f8-cc7dd1a78480" />
+```
+
 
 
 ### 🔮reseult we get 
+
+<img width="1856" height="935" alt="image" src="https://github.com/user-attachments/assets/aaf98834-e5a8-4643-bd19-51f69e84b4dc" />
+
+<img width="1440" height="524" alt="image" src="https://github.com/user-attachments/assets/916a6fde-934e-4d01-a0d3-45f3b9517950" />
+
 
 <img width="845" height="814" alt="Screenshot 2025-10-25 050318" src="https://github.com/user-attachments/assets/b1362a41-742b-40fb-a24b-284fd097e1f0" />
 
