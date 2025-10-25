@@ -144,6 +144,7 @@ openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl
 
 **ScreenShot:** The picture shows include -echo "flow_floorplan.tcl"
 
+<img width="1855" height="955" alt="image" src="https://github.com/user-attachments/assets/90668198-6995-4e98-8813-143b4369368b" />
 
 
 ### 😎The GUI of OpenROAD Tool software Will Open
