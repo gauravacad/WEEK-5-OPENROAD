@@ -125,13 +125,23 @@ set core_area {10.07 11.2 90.25 91}
 #include -echo "flow_floorplan.tcl"
 #include -echo "flow_pdn.tcl"
 #include -echo "flow_global_placement.tcl"
-include -echo "flow_detailed_placement.tcl"
+#include -echo "flow_detailed_placement.tcl"
 ```
-### 🏃‍➡️run this command in the tereminal 
 
+## NOTE 🔥🔥: In the process we will remove comment of the file that is  comment the include flow_floorplan.tcl and uncomment the include flow_pdn.tcl and run the command.
+The reason for doing so is to do step by step implementation. The 4 steps are
+    - 🔥 Floorplan
+    - 🔥 Power distribution network
+    - 🔥 Global placement
+    - 🔥 Full detailed placement(more optimised placement without overlap of standard cells)
+- Here first stage we include only Floorplan tcl file and comment other three files , we do the same for each step .
+- 
+### 🏃‍➡️Run this command in the tereminal 
+- To launch the tool using this tcl file , enter the following command
 ```bash
 openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
 ```
+
 
 ### 😎The GUI of OpenROAD Tool software Will Open
 
