@@ -202,21 +202,13 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 | Macro Placement          | `rtl_macro_placer`                        | Places large pre-designed blocks (macros) based on halo spacing.       |
 | Tapcell Insertion        | `eval tapcell $tapcell_args`              | Inserts tapcells to prevent latch-up and maintain substrate integrity. |
 
-
-
-<img width="829" height="896" alt="Screenshot 2025-10-25 043003" src="https://github.com/user-attachments/assets/564d2889-d34f-4ef6-82b9-0c53e3944a83" />
-
-
-
-
-
 ## 🔭Obseravtions 
-- The layout view shows a defined Die Area (outer white box) and Core Area (inner area with rows). Inside the core area, you can clearly see the horizontal Standard Cell Rows (green lines) have been created. This indicates the Floorplan Initialization stage is complete.
+- The layout view shows a defined Die Area (outer white box) and Core Area (inner area with rows).
+- Inside the core area, We can clearly see the horizontal Standard Cell Rows (green lines) have been created.
+- This indicates the Floorplan Initialization stage is complete.
+## ⏭️ Now, We will run the next stage 
 
-- in this we have the basic die core and rows get set .
 
-
-## ⏭️ now we will run the next stage 
 
 ### 📂 file_4 flow_pdn.tcl
 
