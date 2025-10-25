@@ -108,6 +108,7 @@ Both are critical to achieving a successful, manufacturable ASIC layout using Op
 ## 🛣️now we will do the floorpalnning and placement in openroad.
 ### 📍so I have done it for gcd_nangate45_clean.tcl
 ### 📂file_1 for floorplanning while working On First example design GCD_nand_gate45
+
 ```bash
 # gcd flow pipe cleaner
 source "helpers.tcl"
@@ -121,7 +122,10 @@ set sdc_file "gcd_nangate45.sdc"
 set die_area {0 0 100.13 100.8}
 set core_area {10.07 11.2 90.25 91}
 
-include -echo "flow.tcl"
+#include -echo "flow_floorplan.tcl"
+#include -echo "flow_pdn.tcl"
+#include -echo "flow_global_placement.tcl"
+include -echo "flow_detailed_placement.tcl"
 ```
 ### 🏃‍➡️run this command in the tereminal 
 
