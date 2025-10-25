@@ -141,19 +141,39 @@ The reason for doing so is to do step by step implementation. The 4 steps are
 ```bash
 openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
 ```
-
-**ScreenShot:** The picture shows include -echo "flow_floorplan.tcl"
-
-<img width="1855" height="955" alt="image" src="https://github.com/user-attachments/assets/90668198-6995-4e98-8813-143b4369368b" />
-
-
 ### 😎The GUI of OpenROAD Tool software Will Open
 
 **ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
 <img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
 
+
+**ScreenShot:** The picture shows include -echo "flow_floorplan.tcl"
+<img width="1855" height="955" alt="image" src="https://github.com/user-attachments/assets/90668198-6995-4e98-8813-143b4369368b" />
+
+**ScreenShot:** The picture shows the standard cell rows
+<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
+
 **ScreenShot:** The picture shows that Core Area.
 <img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
+
+
+### 📂 file_4 flow_pdn.tcl
+
+<img width="1317" height="890" alt="Screenshot 2025-10-25 044310" src="https://github.com/user-attachments/assets/30513068-5307-439a-9309-f7afbbb2712c" />
+
+##  📂now again if we run with the gcd_nangate45_clean.tcl
+
+
+### 🔋 power line(shown img)
+
+<img width="1345" height="649" alt="Screenshot 2025-10-23 221602" src="https://github.com/user-attachments/assets/8be6d8f9-a933-48b8-b42c-f1a82c58b36f" />
+
+
+
+###  ⛱️ground line (pink_line)
+
+<img width="533" height="506" alt="Screenshot 2025-10-23 221614" src="https://github.com/user-attachments/assets/e2b6ab9d-ac41-454d-b181-7788d0ced47b" />
+
 
 ### 📂 file_2  🧩OpenROAD Flow Floorplan Script (flow_floorplan.tcl)
 - This script defines the floorplanning stage in the OpenROAD flow.
@@ -227,24 +247,6 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 ## ⏭️ Now, We will run the next stage 
 
 
-
-### 📂 file_4 flow_pdn.tcl
-
-<img width="1317" height="890" alt="Screenshot 2025-10-25 044310" src="https://github.com/user-attachments/assets/30513068-5307-439a-9309-f7afbbb2712c" />
-
-##  📂now again if we run with the gcd_nangate45_clean.tcl
-
-
-### 🔋 power line(shown img)
-
-<img width="1345" height="649" alt="Screenshot 2025-10-23 221602" src="https://github.com/user-attachments/assets/8be6d8f9-a933-48b8-b42c-f1a82c58b36f" />
-
-
-
-###  ⛱️ground line (pink_line)
-
-<img width="533" height="506" alt="Screenshot 2025-10-23 221614" src="https://github.com/user-attachments/assets/e2b6ab9d-ac41-454d-b181-7788d0ced47b" />
-
 ## 🔭Obseravtions
 
 - In this we can see we have placed sucessfully power and ground lines on the chip.
@@ -265,27 +267,17 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 
 <img width="845" height="814" alt="Screenshot 2025-10-25 050318" src="https://github.com/user-attachments/assets/b1362a41-742b-40fb-a24b-284fd097e1f0" />
 
-
-
-
-
-
 <img width="1856" height="1011" alt="Screenshot 2025-10-23 225225" src="https://github.com/user-attachments/assets/e2230332-a2b4-4855-8721-5f37d7712030" />
 
 ## 🔭Obseravtions 
 
 - in this we can see that all the standered cells are placed but they are overlapping ,becuase we have not done yet the proper detailed placement
-
 - there are the I/O pins at the sides of the chip ,it is like and small uppar part of arrow.
-  
-  - the standard cells (small red blocks) are now placed onto the horizontal rows within the core area. This confirms that both Global Placement and Detailed Placement (legalization) have finished. 
-
+- the standard cells (small red blocks) are now placed onto the horizontal rows within the core area. This confirms that both Global Placement and Detailed Placement (legalization) have finished. 
 - The cells appear somewhat clustered towards the center and middle rows, leaving some rows less densely populated. This distribution is determined by the global placement algorithm trying to minimize wire length based on the netlist connections.
 
 
 ## ⏭️now we will do the detailed placement
-
-
 
 ### 📂 file_5 flow_detalied_placement.tcl
 
