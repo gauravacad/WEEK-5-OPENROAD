@@ -246,13 +246,93 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 ### 📂 file_4 flow_global_placement.tcl
 
 ``` bash
+# Assumes flow_helpers.tcl has been read.
+read_libraries
+read_verilog $synth_verilog
+link_design $top_module
+read_sdc $sdc_file
 
+set_thread_count [cpu_count]
+# Temporarily disable sta's threading due to random failures
+sta::set_thread_count 1
+
+utl::metric "IFP::ord_version" [ord::openroad_git_describe]
+# Note that sta::network_instance_count is not valid after tapcells are added.
+utl::metric "IFP::instance_count" [sta::network_instance_count]
+
+initialize_floorplan -site $site \
+  -die_area $die_area \
+  -core_area $core_area
+
+source $tracks_file
+
+# remove buffers inserted by synthesis
+remove_buffers
+
+if { $pre_placed_macros_file != "" } {
+  source $pre_placed_macros_file
+}
+
+################################################################
+# Macro Placement
+if { [have_macros] } {
+  lassign $macro_place_halo halo_x halo_y
+  set report_dir [make_result_file ${design}_${platform}_rtlmp]
+  rtl_macro_placer -halo_width $halo_x -halo_height $halo_y \
+    -report_directory $report_dir
+}
+
+################################################################
+# Tapcell insertion
+eval tapcell $tapcell_args ;# tclint-disable command-args
+
+################################################################
+# Power distribution network insertion
+source $pdn_cfg
+pdngen
+
+################################################################
+# Global placement
+
+foreach layer_adjustment $global_routing_layer_adjustments {
+  lassign $layer_adjustment layer adjustment
+  set_global_routing_layer_adjustment $layer $adjustment
+}
+set_routing_layers -signal $global_routing_layers \
+  -clock $global_routing_clock_layers
+set_macro_extension 2
+
+# Global placement skip IOs
+global_placement -density $global_place_density \
+  -pad_left $global_place_pad -pad_right $global_place_pad -skip_io
+
+# IO Placement
+place_pins -hor_layers $io_placer_hor_layer -ver_layers $io_placer_ver_layer
+
+# Global placement with placed IOs and routability-driven
+global_placement -routability_driven -density $global_place_density \
+  -pad_left $global_place_pad -pad_right $global_place_pad
+
+# checkpoint
+set global_place_db [make_result_file ${design}_${platform}_global_place.db]
+write_db $global_place_db
+
+################################################################
+# Repair max slew/cap/fanout violations and normalize slews
+source $layer_rc_file
+set_wire_rc -signal -layer $wire_rc_layer
+set_wire_rc -clock -layer $wire_rc_layer_clk
+set_dont_use $dont_use
+
+estimate_parasitics -placement
+
+repair_design -slew_margin $slew_margin -cap_margin $cap_margin
+
+repair_tie_fanout -separation $tie_separation $tielo_port
+repair_tie_fanout -separation $tie_separation $tiehi_port
 
 ```
-
-
-
-### 🔮reseult we get 
+### 🔮Placement Results
 
 <img width="1856" height="935" alt="image" src="https://github.com/user-attachments/assets/aaf98834-e5a8-4643-bd19-51f69e84b4dc" />
 
@@ -282,9 +362,6 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 
 <img width="967" height="778" alt="Screenshot 2025-10-25 051321" src="https://github.com/user-attachments/assets/f6a2c71c-3f31-4239-9d6c-da8a3d5b8416" />
 
-
-
-
 <img width="1851" height="1049" alt="Screenshot 2025-10-23 231413" src="https://github.com/user-attachments/assets/e640a19a-76ba-450e-a8d9-2a512dadc0cf" />
 
 
@@ -294,11 +371,9 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 
 ## 🔭Observations 
 
-- in this we can see that standered cell are not overlapping as it was case in the previous image 
+- In this we can see that standered cell are not overlapping as it was case in the previous image 
 - The layout view clearly shows the standard cells (small red blocks) placed onto the horizontal standard cell rows (green/blue lines)
-
 - Timing Analysis Results : Worst Negative Slack (WNS) for Setup Timing. Since it's positive (+0.106 ns), the design currently meets its setup timing requirements.
-
 - This usually represents the worst Hold Slack. The small negative value (-0.009 ns) indicates very minor hold time violations. These are typically fixed later during clock tree synthesis (CTS) or optimization.
 
 
