@@ -355,19 +355,113 @@ repair_tie_fanout -separation $tie_separation $tiehi_port
 
 ### 📂 file_5 flow_detalied_placement.tcl
 
-<img width="967" height="641" alt="image" src="https://github.com/user-attachments/assets/ecc8d6d1-58d5-4475-a33f-a11f43e34b6a" />
+``` bash
+# Assumes flow_helpers.tcl has been read.
+read_libraries
+read_verilog $synth_verilog
+link_design $top_module
+read_sdc $sdc_file
 
+set_thread_count [cpu_count]
+# Temporarily disable sta's threading due to random failures
+sta::set_thread_count 1
 
-###  🎩result we get
+utl::metric "IFP::ord_version" [ord::openroad_git_describe]
+# Note that sta::network_instance_count is not valid after tapcells are added.
+utl::metric "IFP::instance_count" [sta::network_instance_count]
 
-<img width="967" height="778" alt="Screenshot 2025-10-25 051321" src="https://github.com/user-attachments/assets/f6a2c71c-3f31-4239-9d6c-da8a3d5b8416" />
+initialize_floorplan -site $site \
+  -die_area $die_area \
+  -core_area $core_area
 
-<img width="1851" height="1049" alt="Screenshot 2025-10-23 231413" src="https://github.com/user-attachments/assets/e640a19a-76ba-450e-a8d9-2a512dadc0cf" />
+source $tracks_file
 
+# remove buffers inserted by synthesis
+remove_buffers
 
+if { $pre_placed_macros_file != "" } {
+  source $pre_placed_macros_file
+}
 
-**ScreenShot:** The picture shows that openroad GUI is successfully Mapped
-<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
+################################################################
+# Macro Placement
+if { [have_macros] } {
+  lassign $macro_place_halo halo_x halo_y
+  set report_dir [make_result_file ${design}_${platform}_rtlmp]
+  rtl_macro_placer -halo_width $halo_x -halo_height $halo_y \
+    -report_directory $report_dir
+}
+
+################################################################
+# Tapcell insertion
+eval tapcell $tapcell_args ;# tclint-disable command-args
+
+################################################################
+# Power distribution network insertion
+source $pdn_cfg
+pdngen
+
+################################################################
+# Global placement
+
+foreach layer_adjustment $global_routing_layer_adjustments {
+  lassign $layer_adjustment layer adjustment
+  set_global_routing_layer_adjustment $layer $adjustment
+}
+set_routing_layers -signal $global_routing_layers \
+  -clock $global_routing_clock_layers
+set_macro_extension 2
+
+# Global placement skip IOs
+global_placement -density $global_place_density \
+  -pad_left $global_place_pad -pad_right $global_place_pad -skip_io
+
+# IO Placement
+place_pins -hor_layers $io_placer_hor_layer -ver_layers $io_placer_ver_layer
+
+# Global placement with placed IOs and routability-driven
+global_placement -routability_driven -density $global_place_density \
+  -pad_left $global_place_pad -pad_right $global_place_pad
+
+# checkpoint
+set global_place_db [make_result_file ${design}_${platform}_global_place.db]
+write_db $global_place_db
+
+################################################################
+# Repair max slew/cap/fanout violations and normalize slews
+source $layer_rc_file
+set_wire_rc -signal -layer $wire_rc_layer
+set_wire_rc -clock -layer $wire_rc_layer_clk
+set_dont_use $dont_use
+
+estimate_parasitics -placement
+
+repair_design -slew_margin $slew_margin -cap_margin $cap_margin
+
+repair_tie_fanout -separation $tie_separation $tielo_port
+repair_tie_fanout -separation $tie_separation $tiehi_port
+
+set_placement_padding -global -left $detail_place_pad -right $detail_place_pad
+detailed_placement
+
+# post resize timing report (ideal clocks)
+report_worst_slack -min -digits 3
+report_worst_slack -max -digits 3
+report_tns -digits 3
+# Check slew repair
+report_check_types -max_slew -max_capacitance -max_fanout -violators
+
+utl::metric "RSZ::repair_design_buffer_count" [rsz::repair_design_buffer_count]
+utl::metric "RSZ::max_slew_slack" [expr [sta::max_slew_check_slack_limit] * 100]
+utl::metric "RSZ::max_fanout_slack" [expr [sta::max_fanout_check_slack_limit] * 100]
+utl::metric "RSZ::max_capacitance_slack" [expr [sta::max_capacitance_check_slack_limit] * 100]
+
+write_verilog post_detailed_placement.v
+```
+
+**Screenshot: 🎩result post_detailed_placement**
+
+<img width="1602" height="971" alt="image" src="https://github.com/user-attachments/assets/ed47ae1a-1a07-42e9-b995-6449ebef16c7" />
 
 ## 🔭Observations 
 
@@ -376,5 +470,6 @@ repair_tie_fanout -separation $tie_separation $tiehi_port
 - Timing Analysis Results : Worst Negative Slack (WNS) for Setup Timing. Since it's positive (+0.106 ns), the design currently meets its setup timing requirements.
 - This usually represents the worst Hold Slack. The small negative value (-0.009 ns) indicates very minor hold time violations. These are typically fixed later during clock tree synthesis (CTS) or optimization.
 
-
+**ScreenShot:** The picture shows that openroad successfully Mapped GCD Module.
+<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
 
