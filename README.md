@@ -118,9 +118,6 @@ $ sudo make install
 <img width="1416" height="1011" alt="doneopenroad" src="https://github.com/user-attachments/assets/873332ff-6d65-4735-90cf-33d3bf17f561" />
 
 
-
-
-
 # Successfully Installed
 
 **ScreenShot:** The picture shows that openroad is successfully Installed. 
@@ -128,7 +125,7 @@ $ sudo make install
 
 
 **ScreenShot:** The picture shows that openroad is successfully Installed on Ubuntu 24 WSL.
-<img width="1229" height="823" alt="Screenshot 2025-10-25 033714" src="https://github.com/user-attachments/assets/2b74dabf-f986-4082-bf4e-ed1f97e57a30" />
+
 
 
 ### 👏after these all run command openroad and it will open like this -
