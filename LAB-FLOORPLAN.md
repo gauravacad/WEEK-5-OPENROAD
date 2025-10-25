@@ -339,8 +339,6 @@ repair_tie_fanout -separation $tie_separation $tiehi_port
 <img width="1440" height="524" alt="image" src="https://github.com/user-attachments/assets/916a6fde-934e-4d01-a0d3-45f3b9517950" />
 
 
-<img width="845" height="814" alt="Screenshot 2025-10-25 050318" src="https://github.com/user-attachments/assets/b1362a41-742b-40fb-a24b-284fd097e1f0" />
-
 <img width="1856" height="1011" alt="Screenshot 2025-10-23 225225" src="https://github.com/user-attachments/assets/e2230332-a2b4-4855-8721-5f37d7712030" />
 
 ## 🔭Obseravtions 
