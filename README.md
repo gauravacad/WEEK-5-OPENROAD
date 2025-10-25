@@ -138,33 +138,8 @@ $ sudo make install
 <img width="1840" height="553" alt="ls_test_lib" src="https://github.com/user-attachments/assets/5d8f0d38-6bd8-4b0c-a034-ed15856d2944" />
 
 
-
-
-
-# Working On First example design Gcd_nand_gate45
-
-```bash
-# gcd flow pipe cleaner
-source "helpers.tcl"
-source "flow_helpers.tcl"
-source "Nangate45/Nangate45.vars"
-
-set design "gcd"
-set top_module "gcd"
-set synth_verilog "gcd_nangate45.v"
-set sdc_file "gcd_nangate45.sdc"
-set die_area {0 0 100.13 100.8}
-set core_area {10.07 11.2 90.25 91}
-
-include -echo "flow.tcl"
-```
-**ScreenShot:** The picture shows that openroad GUI is successfully running the Gcd_nandgate45.tcl example on Ubuntu 24 WSL.
-<img width="870" height="762" alt="image" src="https://github.com/user-attachments/assets/9d075296-cfe2-4c95-a370-616152448835" />
-
-**ScreenShot:** The picture shows that Core Area.
-<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/cc21bc84-3d6f-492c-a372-8d80e4ddde4c" />
-<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
-
-
-**ScreenShot:** The picture shows that openroad GUI is successfully Mapped
-<img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/9bf5231e-ec0a-4e5b-9aba-51e1f9171cdc" />
+#  Acknowledgement 
+1. VSD and Kunal Sir
+2. General Chat VSD
+3. Chat GPT and all Internet user working on OPENROAD Installation.
+4. ALL friends.
