@@ -49,6 +49,7 @@ These are non-functional cells essential for maintaining the chip’s physical a
 ## 🩳 Summary  
 A good floorplan minimizes wire length, optimizes timing, and provides robust power delivery.  
 It lays the groundwork for effective placement and routing, directly influencing chip performance and manufacturability.
+
 ---
 # 🅿️ Placement  
 ## 🎯 Definition  
