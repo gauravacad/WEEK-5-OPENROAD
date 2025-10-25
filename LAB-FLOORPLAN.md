@@ -150,7 +150,7 @@ openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl
 **ScreenShot:** The picture shows include -echo "flow_floorplan.tcl"
 <img width="1855" height="955" alt="image" src="https://github.com/user-attachments/assets/90668198-6995-4e98-8813-143b4369368b" />
 
-**ScreenShot:** The picture shows the standard cell rows
+**ScreenShot:** The picture shows the standard cell PDK rows
 <img width="870" height="762"  alt="image" src="https://github.com/user-attachments/assets/eed5d953-617d-4bac-8df3-ec65b4c7e066" />
 
 **ScreenShot:** The picture shows that Core Area.
@@ -228,9 +228,13 @@ eval tapcell $tapcell_args ;# tclint-disable command-args
 
 
 **ScreenShot:** The picture shows that power line(shown img)
+<img width="1842" height="1001" alt="image" src="https://github.com/user-attachments/assets/b0a265e0-887d-49b5-ab55-f2cab9d7024f" />
+
 <img width="1345" height="649" alt="Screenshot 2025-10-23 221602" src="https://github.com/user-attachments/assets/8be6d8f9-a933-48b8-b42c-f1a82c58b36f" />
 
 **ScreenShot:** The picture shows that ground line (pink_line)
+<img width="1106" height="441" alt="image" src="https://github.com/user-attachments/assets/4883b46a-5e49-48d4-b7f1-ff419ec4f6ee" />
+
 <img width="533" height="506" alt="Screenshot 2025-10-23 221614" src="https://github.com/user-attachments/assets/e2b6ab9d-ac41-454d-b181-7788d0ced47b" />
 
 
