@@ -122,7 +122,7 @@ set sdc_file "gcd_nangate45.sdc"
 set die_area {0 0 100.13 100.8}
 set core_area {10.07 11.2 90.25 91}
 
-#include -echo "flow_floorplan.tcl"
+include -echo "flow_floorplan.tcl"
 #include -echo "flow_pdn.tcl"
 #include -echo "flow_global_placement.tcl"
 #include -echo "flow_detailed_placement.tcl"
@@ -141,6 +141,9 @@ The reason for doing so is to do step by step implementation. The 4 steps are
 ```bash
 openroad -gui -log gcd_logfile.log gcd_nangate45_clean.tcl 
 ```
+
+**ScreenShot:** The picture shows include -echo "flow_floorplan.tcl"
+
 
 
 ### 😎The GUI of OpenROAD Tool software Will Open
